@@ -1,3 +1,8 @@
+# HIT137 - Group 84
+# Name : Ricky Maharjan - ID-s359074
+# Name : Abinab D C - ID-s360320
+# Turtle Graphics Drawing 
+
 import turtle
 import random
 from turtle import*
@@ -5,9 +10,9 @@ t=Turtle()
 screen = turtle.Screen()
 background_color = "#38285c"
 screen.bgcolor(background_color)
-screen.setup(width = 1.0, height = 1.0)
+screen.setup(width = 1.0, height = 1.0) #Set full screen window
  
-
+#function to draw circle with size and color
 def draw_circle(size,color):
     t.pendown()
     t.color(color)
@@ -16,6 +21,8 @@ def draw_circle(size,color):
     t.circle(size)
     t.end_fill()
     t.penup()
+
+#function to draw triangle with size and color    
 def draw_triangle(size,color):
     t.pendown()
     t.setheading(0)
@@ -29,7 +36,7 @@ def draw_triangle(size,color):
     t.penup()
 
     
-######### Cristmas tree end here ########
+######### Cristmas tree starts here ########
 # Creating Right half of the tree
 t.begin_fill()
 t.fillcolor("green")
@@ -79,51 +86,38 @@ t.end_fill()
 #Creating the balls on the Christmas Tree
 t.goto(120,-10)
 draw_circle(10,"red")
-
 t.goto(210,-10)
 draw_circle(10,"blue")
-
 t.goto(-100,-10)
 draw_circle(10,"red")
-
 t.goto(-185,-10)
 draw_circle(10,"blue")
-
 t.goto(160,80)
 draw_circle(10,"yellow")
-
 t.goto(-145,80)
 draw_circle(10,"yellow")
-
 t.goto(120,150)
 draw_circle(10,"red")
-
 t.goto(-100,150)
 draw_circle(10,"red")
-
 t.goto(5,25)
 draw_circle(7,"yellow")
-
 t.goto(5,90)
 draw_circle(7,"red")
-
 t.goto(5,160)
 draw_circle(7,"blue")
 
 #Drawing the bells using triangle.
 t.goto(-80,30)
 draw_triangle(15,"yellow")
-
 t.goto(70,30)
 draw_triangle(15,"red")
-
 t.goto(-50,110)
 draw_triangle(15,"blue")
-
 t.goto(30,110)
 draw_triangle(15,"yellow")
 
-# Printing the star using for loop
+# Drawing the star using for loop
 t.penup()
 t.color("yellow")
 t.goto(-20,240)
@@ -133,23 +127,28 @@ for i in range(5):
     t.forward(40)
     t.right(144)
 t.end_fill()
-
-# ####### Cristmas tree end here ########
+######## Cristmas tree end here ########
  
-# ####Draw hallowen Pumpkin start#####
+#####Draw hallowen Pumpkin start#####
+#Draw first circle
 t.penup()
 t.goto(-500,-300)
 draw_circle(150,"orange")
+#Draw second circle
 t.goto(-580,-300)
 draw_circle(150,"orange")
-
+#Draw Traingles inside pumpkin
 t.goto(-650,-100)
 draw_triangle(50,"red")
 t.goto(-480,-100)
 draw_triangle(50,"red")
 t.goto(-560,-170)
 draw_triangle(40,"red")
-
+t.goto(-625,-240)
+for i in range(8):
+    draw_triangle(25,"red")
+    t.fd(20)
+#Draw steam of pumpkin
 t.goto(-570,-20)
 draw_triangle(50,"green")
 t.goto(-555,0)
@@ -164,11 +163,6 @@ t.fd(20)
 t.lt(90)
 t.fd(40)
 t.end_fill()
-
-t.goto(-625,-240)
-for i in range(8):
-    draw_triangle(25,"red")
-    t.fd(20)
 ####Draw hallowen Pumpkin end##### 
  
 ##### Draw Flag start ####
@@ -317,7 +311,7 @@ equalizer_bar6.speed(15)
 equalizer_bar6.left(90)
 equalizer_bar6.forward(5)
 
-turtle.colormode(255)
+turtle.colormode(255) #defining color mode to RGB 255
 for i in range(30):
     R1 = random.randint(0,255)
     G1 = random.randint(0,255)
