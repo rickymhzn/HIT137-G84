@@ -1,7 +1,8 @@
 # HIT137 - Group 84
 # Name : Ricky Maharjan - ID-s359074
 # Name : Abinab D C - ID-s360320
-# Python GUI Interface for Poin of Sale
+# Question 2 – Python GUI Interface for Point of Sale
+
 from tkinter import *
 from tkinter import ttk
 import tkinter.font as font

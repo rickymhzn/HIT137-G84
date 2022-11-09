@@ -1,7 +1,7 @@
 # HIT137 - Group 84
 # Name : Ricky Maharjan - ID-s359074
 # Name : Abinab D C - ID-s360320
-# Turtle Graphics Drawing 
+# Questions 1 - 10 Marks Create a program using turtle
 
 import turtle
 import random
