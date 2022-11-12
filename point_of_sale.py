@@ -11,15 +11,10 @@ import tkinter.messagebox
 class POS:
     def __init__(self,window):
         self.window = window
-        #getting screen width and height of display
-        # width= window.winfo_screenwidth()
-        # height= window.winfo_screenheight()
         #setting tkinter window size
         self.window.geometry("1366x780")
         self.window.title("Point of Sale")
-        self.window.configure(background='white')
-       
-             
+        self.window.configure(background='white')           
         #Creating Main Frame for content
         MainFrame = Frame(self.window, bg="white")
         MainFrame.grid(padx=8,pady=8)
@@ -50,7 +45,6 @@ class POS:
         total_input.set("$ 0.00")
         payment_type = StringVar()
         payment_type.set("Cash")
-
         ###========> Menu Frame Content
         #create a tab based menu
         menu_tab = ttk.Notebook(MenuFrame,width=995,height=470)
@@ -60,7 +54,6 @@ class POS:
         #creating new tabs using frame widget
         food_menu_tab = Frame(menu_tab,width=955, height=470)
         drinks_meun_tab = Frame(menu_tab,width=955, height=470)
-
         menu_tab.add(food_menu_tab,text="Food")
         menu_tab.add(drinks_meun_tab, text="Drinks")
         menu_tab.pack(expand=1, fill="both")
@@ -110,8 +103,7 @@ class POS:
                 price += float(self.POS_receipt.item(child,"values")[2])
                 subtotal_input.set(str('$ %.2f'%(price-14.00)))
                 tax_input.set(str('$ %.2f'%(((price-14.00)*tax)/100)))
-                total_input.set(str('$ %.2f'%((price-14.00)+((price-14.00)*tax/100))))  
-                
+                total_input.set(str('$ %.2f'%((price-14.00)+((price-14.00)*tax/100))))                  
         def squid():
             price = 16.00
             tax = 3
@@ -286,22 +278,30 @@ class POS:
         def change():
             total_cost = 0.0
             tax = 3
-            cash = float(cash_input.get())
+            ## table number validation
+            if(table_input.get() == ""):
+                tkinter.messagebox.showwarning('Warning', 'Table number required!!')  
+                return  
+            ## cash input validation
+            if(cash_input.get() == ''):
+                tkinter.messagebox.showerror('Error', 'Enter Paid AMount!!')
+                return
+            else:
+                cash = float(cash_input.get())
+            ## get change amount   
             for item in self.POS_receipt.get_children():
                 total_cost += float(self.POS_receipt.item(item,"values")[2])
             change_amt = cash -((total_cost)+(total_cost*tax)/100)
+            ## Amount paid validation
             if(change_amt < 0):
                 tkinter.messagebox.showerror('Error', 'Amount not enough!!')
-            elif(table_input.get() == ""):
-                tkinter.messagebox.showwarning('Warning', 'Table number required!!')    
             else:    
                 change_input.set("%.2F"%change_amt)
                 answer = tkinter.messagebox.askquestion('Payment', 'Payment successfull?')
                 if answer == 'yes':
                     resetAll()
         #################################        
-        ### Food menu tab content  ###
-       
+        ### Food menu tab content  ###     
         self.mixed_olives = Button(food_menu_tab, padx=10,pady=10,width=menu_button_width,height=menu_button_height,font=menu_button_font,text='Mixed Olives',command=mixed_olives)
         self.mixed_olives.grid(row=1,column=1,padx=2,pady=2)
         self.foccacia = Button(food_menu_tab, padx=10,pady=10,width=menu_button_width,height=menu_button_height,font=menu_button_font,text='Foccacia',command=foccacia)
@@ -343,46 +343,37 @@ class POS:
         self.coffee.grid(row=2,column=2,padx=2,pady=2)
         self.juice = Button(drinks_meun_tab, padx=10,pady=10,width=menu_button_width,height=menu_button_height,font=menu_button_font,text='Juice',command=juice)
         self.juice.grid(row=2,column=3,padx=2,pady=2)
- 
         ###========> Receipt Frame Content
         ### Treeview Widget for Receipt
         scroll_x = Scrollbar(ReceiptFrame,orient=HORIZONTAL)
-        scroll_y = Scrollbar(ReceiptFrame,orient=VERTICAL)
-        
+        scroll_y = Scrollbar(ReceiptFrame,orient=VERTICAL)     
         self.POS_receipt = ttk.Treeview(ReceiptFrame,height=18,columns=("Item","Qty","Amount"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
         scroll_x.pack(side=BOTTOM,fill=X)
-        scroll_y.pack(side=RIGHT,fill=Y)
-        
+        scroll_y.pack(side=RIGHT,fill=Y)   
         self.POS_receipt.heading("Item",text="Item")
         self.POS_receipt.heading("Qty",text="Qty")
         self.POS_receipt.heading("Amount",text="Amount")
-        self.POS_receipt['show']='headings'
-        
+        self.POS_receipt['show']='headings'    
         self.POS_receipt.column("Item",width=155)
         self.POS_receipt.column("Qty",width=60)
-        self.POS_receipt.column("Amount",width=90)
-        
+        self.POS_receipt.column("Amount",width=90)   
         self.POS_receipt.pack(fill=BOTH,expand=1)
         ###========> Calculation Frame Content
         self.sub_total_lbl = Label(CalculationFrame,text="Sub Total",width=23)
         self.sub_total_lbl.grid(row=1,column=1)
         self.sub_total_txt = Entry(CalculationFrame,textvariable=subtotal_input,bd=2,width=25)
         self.sub_total_txt.grid(row=1,column=2,padx=2)
-        
         self.tax_lbl = Label(CalculationFrame,text="Tax",width=23)
         self.tax_lbl.grid(row=2,column=1)
         self.tax_txt = Entry(CalculationFrame,textvariable=tax_input,bd=2,width=25)
-        self.tax_txt.grid(row=2,column=2,padx=2)
-        
+        self.tax_txt.grid(row=2,column=2,padx=2)   
         self.total_lbl = Label(CalculationFrame,text="Total",width=23)
         self.total_lbl.grid(row=3,column=1)
         self.total_txt = Entry(CalculationFrame,textvariable=total_input,bd=2,width=25)
         self.total_txt.grid(row=3,column=2,padx=2)
         ### =====> Action Buttons
-       
         self.remove_item = Button(ActionFrame,width=22,height=1,bd=2,text="Remove Item",bg="blue",fg="white",command=remove_item)
-        self.remove_item.grid(row=1,column=1,pady=2)
-       
+        self.remove_item.grid(row=1,column=1,pady=2) 
         self.reset_button = Button(ActionFrame,width=22,height=1,bd=2,text="Reset all",bg="red",fg="white",command=resetAll)
         self.reset_button.grid(row=1,column=2,pady=2)
         ### Table number
@@ -414,8 +405,7 @@ class POS:
         def exit_pos():
             exit = tkinter.messagebox.askyesno('Point of Sale', 'Do you want to exit Point of Sale?')
             if exit == 1:
-                window.destroy()
-           
+                window.destroy()     
         ################################
         self.exit_button = Button(ActionFrame,padx=2,width=45,height=2,bd=2,text="Exit",bg="red",fg="white",command=exit_pos)
         self.exit_button.grid(row=7,column=1,columnspan=2,pady=3)
